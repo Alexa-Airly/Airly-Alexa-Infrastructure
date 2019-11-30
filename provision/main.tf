@@ -24,7 +24,7 @@ resource "aws_s3_bucket" "ArtifactsBucket" {
   }
 }
 
-esource "aws_dynamodb_table" "TfStateTable" {
+resource "aws_dynamodb_table" "TfStateTable" {
   name         = "${var.table_name}"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
