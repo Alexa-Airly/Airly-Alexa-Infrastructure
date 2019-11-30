@@ -68,4 +68,5 @@ jobs:
         - mv terraform.tfvars_template terraform.tfvars
         - terraform init
         - terraform validate
+        - chmod +x execute.sh
         - ./execute.sh
