@@ -5,9 +5,9 @@ language: bash
 stages:
   - name: Prepare infra
     
-    # if: $TRAVIS_COMMIT_MESSAGE = "execute init"
-    on:
-      condition: "$TRAVIS_COMMIT_MESSAGE = execute_init"
+     if: $TRAVIS_COMMIT_MESSAGE = "execute_init"
+    # on:
+    #   condition: "$TRAVIS_COMMIT_MESSAGE = execute_init"
   - name: Terraform run
   # - name: Perform tests
   # - name: Deploy code
