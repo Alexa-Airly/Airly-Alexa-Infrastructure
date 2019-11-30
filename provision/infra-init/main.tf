@@ -68,8 +68,7 @@ resource "aws_iam_policy" "TravisAlexaAirlyPolicy" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["${aws_s3_bucket.ArtifactsBucket.arn}",
-                   "${aws_s3_bucket.TfStateBucket.arn}"
+      "Resource": ["${aws_s3_bucket.TfStateBucket.arn}"
                   ]
     },
     {
@@ -84,8 +83,7 @@ resource "aws_iam_policy" "TravisAlexaAirlyPolicy" {
       "Action": [
         "s3:PutObject"
       ],
-      "Resource": ["${aws_s3_bucket.ArtifactsBucket.arn}/*",
-                   "${aws_s3_bucket.TfStateBucket.arn}/*"
+      "Resource": ["${aws_s3_bucket.TfStateBucket.arn}/*"
                   ]
     },
     {
