@@ -3,7 +3,7 @@ variable "region" {
   description = "Default region"
 }
 
-variable "bucket_name" {
+variable "state_bucket_name" {
   type        = "string"
   description = "Name of the S3 bucket, where state files will be stored"
 }

@@ -32,7 +32,7 @@ resource "aws_dynamodb_table" "TfStateTable" {
 
 resource "aws_iam_role" "TravisAlexaAirlyRole" {
   name        = "iam-role-for-travis-alexa-airly"
-  path        = "/alexa-airly"
+  path        = "/alexaairly"
   description = "IAM role for Travis execution, created by terraform"
 
   assume_role_policy = <<EOF
@@ -108,7 +108,7 @@ resource "aws_iam_role_policy_attachment" "TravisAlexaAttachement" {
 
 resource "aws_iam_user" "CodeDeployLambda" {
   name = "CodeDeployLambdaAlexaAirly"
-  path = "/alexa-airly"
+  path = "/alexaairly"
 
   tags = {
     Project = "Alexa Airly Status"
