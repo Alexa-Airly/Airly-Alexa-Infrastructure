@@ -1,0 +1,3 @@
+region                = "REGION"
+state_bucket_name     = "STATEBUCKETNAME"
+table_name            = "TABLENAME"

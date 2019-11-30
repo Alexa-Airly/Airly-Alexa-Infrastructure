@@ -3,6 +3,8 @@ dist: trusty
 language: bash
 
 stages:
+  - name: Terraform prepare
+    if: TRAVIS_COMMIT_MESSAGE = "execute init"
   - name: Terraform run
   # - name: Perform tests
   # - name: Deploy code
@@ -48,6 +50,23 @@ jobs:
     #     - sudo chmod +x $(which sonar-scanner)
     #     - export PATH=$(dirname $(which sonar-scanner)):$PATH
     #     - sonar-scanner
+
+    - stage: Terraform prepare
+    env:
+        - TF_INPUT=false # No interraction
+      script:
+        - cd provision/infra-init
+        - echo "Feeding terraform.tfvars with variables."
+        - sed -i -e "s/REGION/${terraform_region}/g" terraform.tfvars_template
+        - sed -i -e "s/TABLENAME/${terraform_table}/g" terraform.tfvars_template
+        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" terraform.tfvars_template
+        - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" terraform.tfvars_template
+        - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" terraform.tfvars_template
+        - mv terraform.tfvars_template terraform.tfvars
+        - terraform init
+        - terraform validate
+        - chmod +x execute.sh
+        - ./execute.sh
 
     - stage: Terraform run
       env:
