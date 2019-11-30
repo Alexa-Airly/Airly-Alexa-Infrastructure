@@ -1,17 +1,11 @@
-sudo: required
-dist: trusty
-language: bash
+os: linux
+language: shell
 
 stages:
   - name: Prepare infra
     if: commit_message = "execute_init"
-    # on:
-    #   condition: "$TRAVIS_COMMIT_MESSAGE = execute_init"
   - name: Terraform run
-  # - name: Perform tests
-  # - name: Deploy code
-  #   if: branch = master && type != cron  
-
+  
 services:
   - docker
 
@@ -27,32 +21,6 @@ install:
 
 jobs:
   include:
-    # - stage: Perform tests
-    #   script:
-    #     - echo "Check for commit ${TRAVIS_COMMIT} and tag ${TRAVIS_TAG} from branch ${TRAVIS_BRANCH}."
-    #     - echo "This is build number ${TRAVIS_BUILD_NUMBER}, for ${TRAVIS_REPO_SLUG}."
-    #     - mkdir /tmp/config-custom
-    #     - docker pull almerhor/pylint:default
-    #     - docker run --rm -v $(pwd):/pylint -v $(pwd)/test:/tmp/config-custom almerhor/pylint:default py/cloud_control_create_ec2.py requirements-custom.txt
-    
-    # - stage: Perform tests
-    #   dist: trusty
-    #   language: java
-    #   sudo: required
-    #   addons:
-    #     sonarcloud:
-    #       organization: "alexa-cloud-control"
-    #       token: 
-    #         secure: "Rs0YO1hVG4wMmspKFiWiFdJJeYSGAJG+cA9heb/kwbVJQleVZxb0jF0i5JOQ09MvgYcDExGROSiXj+69XVvfDZTDfmSYxEpmtgQzL0i8wo462dmD5KY+XRcU+nZqjuOFc1Xkjk2q+foo6Wb8tUBcNjh9gwAStWFv5qlicZn76iP54SeahoqHf6jnVi9lZntCpFbxfnjXNnLyY2WoNka/O4COmUU9TPmIL6APCouFCiSimD9QNrkoUh43fGvc69spnfFL373BlOma11AWlkNe35J9I9CZO92Ocx8VH4nAvSFX4aJ+5LCYLREvmf+pUpaHRm0xPI6XV/ee6hbOdC0D2BmrL30DKWx0Z697tmBMoQdz4f/ZIRyd/r2JljVL4FqbTPMaFvrYMwwFBYBgQ9Qota9NnzjNdbScjzjGxQ3B1Q5Y/MJ75VpYjMMJPEmvhTdnaBdJzoQTq5zbWLXHmdnY7ZwU9DtlYIqUlaOdMRel0PkFiKxqHAlWNUAR3WRDBfgDJdwbY5ItCRP9aQu6Dg2eppL6i1eP17uIu00hFrhz45/6RqoiiAVZglJ2xzG0Ju8slbu1tX8UlNYj7kig/RVNOO73eCvxwfUBg08g54pANs1efoRQ4XAWavl5QcjNyay8n3M24pkO/XoC59BgATsGoFziDovmSRPxJgbo3czLSJU="
-      
-    #   jdk:
-    #     - oraclejdk8
-
-    #   script:
-    #     - sudo chmod +x $(which sonar-scanner)
-    #     - export PATH=$(dirname $(which sonar-scanner)):$PATH
-    #     - sonar-scanner
-
     - stage: Prepare infra
       env:
         - TF_INPUT=false # No interraction
