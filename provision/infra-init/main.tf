@@ -3,12 +3,12 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "TfStateBucket" {
-  bucket = "${var.bucket_name}"
+  bucket = "${var.state_bucket_name}"
   region = "${data.aws_region.current.name}"
 
   tags = {
     Project = "Alexa Airly Status"
-    Name    = "${var.bucket_name}"
+    Name    = "${var.state_bucket_name}"
     Purpose = "Keep tfstate files"
   }
 }
