@@ -63,8 +63,6 @@ jobs:
         - sed -i -e "s/REGION/${terraform_region}/g" terraform.tfvars_template
         - sed -i -e "s/TABLENAME/${terraform_table}/g" terraform.tfvars_template
         - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" terraform.tfvars_template
-        - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" terraform.tfvars_template
-        - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" terraform.tfvars_template
         - mv terraform.tfvars_template terraform.tfvars
         - terraform init
         - terraform validate
