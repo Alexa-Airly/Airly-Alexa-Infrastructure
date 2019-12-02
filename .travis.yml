@@ -24,9 +24,9 @@ jobs:
         - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" template_cloudformation.yml
         - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" template_cloudformation.yml
       deploy:
-        provider: CLoudformation
-        access_key_id: ${}
-        secret_access_key: ${}
+        provider: Cloudformation
+        access_key_id: ${AWS_ACCESS_KEY_ID}
+        secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         template: template_cloudformation.yml
         stack_name: Alexa-Airly-Infrastructure
         region: ${terraform_region}
