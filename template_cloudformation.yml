@@ -104,7 +104,7 @@ Resources:
     Properties:
       AssumeRolePolicyDocument: Json
       Description: IAM role for Travis execution, created by Cloudformation
-      Path: "/alexaairly/"
+      Path: /alexaairly/
       RoleName: iam-role-for-travis-alexa-airly
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -149,10 +149,10 @@ Resources:
                   -
                     !Join
                       - ''
-                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:'
+                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:table/'
                         - !Ref TerraformStateTable
                   -
                     !Join
                       - ''
-                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:'
+                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:table/'
                         - !Ref AirlyTable
