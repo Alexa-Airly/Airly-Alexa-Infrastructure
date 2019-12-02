@@ -135,7 +135,7 @@ Resources:
                         - !Ref TerraformStateBucket
                   -
                     !Join
-                      - '
+                      - ''
                       - - 'arn:aws:s3:::'
                         - !Ref ArtifactsBucket
               -
