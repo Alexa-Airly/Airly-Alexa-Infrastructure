@@ -153,6 +153,6 @@ Resources:
                         - !Ref TerraformStateTable
                   -
                     !Join
-                      - '
+                      - ''
                       - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
                         - !Ref AirlyTable
