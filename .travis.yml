@@ -29,6 +29,7 @@ jobs:
         edge: true # use DPLv2
         access_key_id: ${AWS_ACCESS_KEY_ID}
         secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+        capabilities: CAPABILITY_NAMED_IAM
         template: template_cloudformation.yml
         stack_name: Alexa-Airly-Infrastructure
         region: ${terraform_region}
