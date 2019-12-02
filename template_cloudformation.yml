@@ -98,3 +98,47 @@ Resources:
         -
           Key: Purpose
           Value: Airly data table
+  
+  AlexaAirlyTravisRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: Json
+      Description: IAM role for Travis execution, created by Cloudformation
+      Path: "/alexaairly/"
+      RoleName: iam-role-for-travis-alexa-airly
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - s3.amazonaws.com;
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: iam-policy-for-travis-alexa-airly
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - 
+                Effect: Allow
+                Action: 
+                  -
+                    s3:ListBucket
+                    s3:GetObject
+                    s3:PutObject
+                Resource: 
+                  -
+                    !Ref: TerraformStateBucket
+                    !Ref: ArtifactsBucket
+              -
+                Effect: Allow
+                Action:
+                  -
+                    dynamodb:GetItem
+                    dynamodb:PutItem
+                    dynamodb:DeleteItem
+                Resource:
+                  -
+                    !Ref: TerraformStateTable
+                    !Ref: AirlyTable
