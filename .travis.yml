@@ -2,9 +2,7 @@ os: linux
 language: shell
 
 stages:
-  - name: Prepare infra
-    if: commit_message = "execute_init"
-  - name: Terraform run
+  - name: Deploy infra
   
 services:
   - docker
@@ -14,46 +12,23 @@ install:
   - sudo apt-get -qq update
   - sudo apt-get -t trusty-backports install shellcheck
   - sudo pip install awscli  
-  - curl -sLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
-  - unzip /tmp/terraform.zip -d /tmp
-  - mv /tmp/terraform ~/bin
-  - export PATH="~/bin:$PATH"
+
 
 jobs:
   include:
-    - stage: Prepare infra
-      env:
-        - TF_INPUT=false # No interraction
+    - stage: Deploy infra
       script:
-        - cd provision/infra-init
-        - echo "Feeding terraform.tfvars with variables."
-        - sed -i -e "s/REGION/${terraform_region}/g" terraform.tfvars_template
-        - sed -i -e "s/TABLENAME/${terraform_table}/g" terraform.tfvars_template
-        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" terraform.tfvars_template
-        - mv terraform.tfvars_template terraform.tfvars
-        - terraform init
-        - terraform validate
-        - chmod +x execute.sh
-        - ./execute.sh
-
-    - stage: Terraform run
-      env:
-        - TF_INPUT=false # No interraction
-      script:
-        - cd provision
-        - echo "Feeding terraform.tf with variables."
-        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" terraform.tf_template
-        - sed -i -e "s/TABLENAME/${terraform_table}/g" terraform.tf_template
-        - sed -i -e "s/REGION/${terraform_region}/g" terraform.tf_template
-        - mv terraform.tf_template terraform.tf
-        - echo "Feeding terraform.tfvars with variables."
-        - sed -i -e "s/REGION/${terraform_region}/g" terraform.tfvars_template
-        - sed -i -e "s/TABLENAME/${terraform_table}/g" terraform.tfvars_template
-        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" terraform.tfvars_template
-        - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" terraform.tfvars_template
-        - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" terraform.tfvars_template
-        - mv terraform.tfvars_template terraform.tfvars
-        - terraform init
-        - terraform validate
-        - chmod +x execute.sh
-        - ./execute.sh
+        - echo "Feeding CloudFormation template with variables."
+        - sed -i -e "s/STATETABLENAME/${terraform_table}/g" template_cloudformation.yml
+        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" template_cloudformation.yml
+        - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" template_cloudformation.yml
+        - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" template_cloudformation.yml
+      deploy:
+        provider: CLoudformation
+        access_key_id: ${}
+        secret_access_key: ${}
+        template: template_cloudformation.yml
+        stack_name: Alexa-Airly-Infrastructure
+        region: ${terraform_region}
+        wait: true
+        promote: true

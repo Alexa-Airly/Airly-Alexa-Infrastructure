@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Infrastructure for Alexa-Airly
+
+Resources:
+  TerraformStateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: STATEBUCKETNAME
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - 
+          Key: Name
+          Value: STATEBUCKETNAME
+        - 
+          Key: Project
+          Value: Alexa-Airly-Status
+        - 
+          Key: Purpose
+          Value: Terraform State files
+
+  ArtifactsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ARTIFACTBUCKETNAME
+      VersioningConfiguration: 
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: ManageVersions
+            Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 1
+            NoncurrentVersionExpirationInDays: 60
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      Tags:
+        - 
+          Key: Name
+          Value: ARTIFACTBUCKETNAME
+        - 
+          Key: Project
+          Value: Alexa-Airly-Status
+        - 
+          Key: Purpose
+          Value: Artifacts storage
+
+  TerraformStateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: LOCKTABLENAME
+      BillingMode: "PAY_PER_REQUEST"
+      AttributeDefinitions:
+        -
+          AttributeName: "LockID"
+          AttributeType: "S"
+      KeySchema: 
+        -
+          AttributeName: "LockID"
+          KeyType: "HASH"
+      Tags:
+        -
+          Key: Name
+          Value: LOCKTABLENAME
+        -
+          Key: Project
+          Value: Alexa-Airly-Status
+        -
+          Key: Purpose
+          Value: Terraform Locks table
+
+  AirlyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: AIRLYTABLE
+      BillingMode: "PAY_PER_REQUEST"
+      AttributeDefinitions:
+        -
+          AttributeName: "Element"
+          AttributeType: "S"
+      KeySchema: 
+        -
+          AttributeName: "Element"
+          KeyType: "HASH"
+      Tags:
+        -
+          Key: Name
+          Value: AIRLYTABLE
+        -
+          Key: Project
+          Value: Alexa-Airly-Status
+        -
+          Key: Purpose
+          Value: Airly data table
