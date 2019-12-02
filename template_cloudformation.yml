@@ -133,6 +133,7 @@ Resources:
                       - ''
                       - - 'arn:aws:s3:::'
                         - !Ref TerraformStateBucket
+                  -
                     !Join
                       - '
                       - - 'arn:aws:s3:::'
@@ -150,6 +151,7 @@ Resources:
                       - ''
                       - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
                         - !Ref TerraformStateTable
+                  -
                     !Join
                       - '
                       - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
