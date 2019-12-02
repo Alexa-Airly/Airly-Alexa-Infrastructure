@@ -23,6 +23,7 @@ jobs:
         - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" template_cloudformation.yml
         - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" template_cloudformation.yml
         - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" template_cloudformation.yml
+        - sed -i -e "s/ACCOUNTNUMBER/${account_number}/g" template_cloudformation.yml
       deploy:
         provider: Cloudformation
         edge: true # use DPLv2

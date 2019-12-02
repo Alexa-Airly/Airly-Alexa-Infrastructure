@@ -149,10 +149,10 @@ Resources:
                   -
                     !Join
                       - ''
-                      - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
+                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:'
                         - !Ref TerraformStateTable
                   -
                     !Join
                       - ''
-                      - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
+                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:'
                         - !Ref AirlyTable
