@@ -129,8 +129,14 @@ Resources:
                     s3:PutObject
                 Resource: 
                   -
-                    !Ref TerraformStateBucket
-                    !Ref ArtifactsBucket
+                    !Join
+                      - ''
+                      - - 'arn:aws:s3:::'
+                        - !Ref TerraformStateBucket
+                    !Join
+                      - '
+                      - - 'arn:aws:s3:::'
+                        - !Ref ArtifactsBucket
               -
                 Effect: Allow
                 Action:
@@ -140,5 +146,11 @@ Resources:
                     dynamodb:DeleteItem
                 Resource:
                   -
-                    !Ref TerraformStateTable
-                    !Ref AirlyTable
+                    !Join
+                      - ''
+                      - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
+                        - !Ref TerraformStateTable
+                    !Join
+                      - '
+                      - - 'arn:aws:dynamodb:eu-west-1:${account_number}:'
+                        - !Ref AirlyTable
