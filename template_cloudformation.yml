@@ -103,7 +103,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument: Json
-      Description: IAM role for Travis execution, created by Cloudformation
+      Description: IAM role for Travis execution created by Cloudformation
       Path: /alexaairly/
       RoleName: iam-role-for-travis-alexa-airly
       AssumeRolePolicyDocument:
