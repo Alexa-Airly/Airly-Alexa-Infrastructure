@@ -25,6 +25,7 @@ jobs:
         - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" template_cloudformation.yml
       deploy:
         provider: Cloudformation
+        edge: true # use DPLv2
         access_key_id: ${AWS_ACCESS_KEY_ID}
         secret_access_key: ${AWS_SECRET_ACCESS_KEY}
         template: template_cloudformation.yml
