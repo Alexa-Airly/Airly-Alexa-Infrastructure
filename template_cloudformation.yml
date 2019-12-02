@@ -129,8 +129,8 @@ Resources:
                     s3:PutObject
                 Resource: 
                   -
-                    !Ref: TerraformStateBucket
-                    !Ref: ArtifactsBucket
+                    !Ref TerraformStateBucket
+                    !Ref ArtifactsBucket
               -
                 Effect: Allow
                 Action:
@@ -140,5 +140,5 @@ Resources:
                     dynamodb:DeleteItem
                 Resource:
                   -
-                    !Ref: TerraformStateTable
-                    !Ref: AirlyTable
+                    !Ref TerraformStateTable
+                    !Ref AirlyTable
