@@ -2,6 +2,7 @@ os: linux
 language: shell
 
 stages:
+  - name: Test template
   - name: Deploy infra
   
 services:
@@ -10,12 +11,16 @@ services:
 install:
   - sudo apt-add-repository "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse"
   - sudo apt-get -qq update
-  - sudo apt-get -t trusty-backports install shellcheck
-  - sudo pip install awscli  
 
 
 jobs:
   include:
+    - stage: Test template
+      script:
+        - echo "Check for commit ${TRAVIS_COMMIT} and tag ${TRAVIS_TAG} from branch ${TRAVIS_BRANCH}."
+        - echo "This is build number ${TRAVIS_BUILD_NUMBER}, for ${TRAVIS_REPO_SLUG}."
+        - docker pull almerhor/cfmlint:latest
+        - docker run --rm -v $(pwd)/:/lintfiles cfnlinter -t template_cloudformation.yml
     - stage: Deploy infra
       script:
         - echo "Feeding CloudFormation template with variables."
