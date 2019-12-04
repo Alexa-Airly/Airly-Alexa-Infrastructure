@@ -151,3 +151,9 @@ Resources:
                       - ''
                       - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:table/'
                         - !Ref AirlyTable
+Outputs:
+  TerraformStateBucketName:
+    Description: Terraform States bucket
+    Value: !Ref TerraformStateBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-TerraformStateBucket"
