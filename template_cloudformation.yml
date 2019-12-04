@@ -33,8 +33,6 @@ Resources:
             Status: Enabled
             AbortIncompleteMultipartUpload:
               DaysAfterInitiation: 1
-            AbortIncompleteMultipartUpload:
-              DaysAfterInitiation: 1
             NoncurrentVersionExpirationInDays: 60
       BucketEncryption: 
         ServerSideEncryptionConfiguration:
