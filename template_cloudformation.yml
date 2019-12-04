@@ -153,7 +153,25 @@ Resources:
                         - !Ref AirlyTable
 Outputs:
   TerraformStateBucketName:
-    Description: Terraform States bucket
+    Description: Terraform States bucket for AlexaAirly
     Value: !Ref TerraformStateBucket
     Export:
       Name: !Sub "${AWS::StackName}-TerraformStateBucket"
+ 
+  ArtifactsBucketName:
+    Description: Artifacts bucket for AlexaAirly
+    Value: !Ref ArtifactsBucket
+    Export:
+      Name: !Sub "${AWS::StackName}-ArtifactsBucket"
+
+  TerraformStateTableName:
+    Description: Terraform Locks DynamoDB table for AlexaAirly
+    Value: !Ref TerraformStateTable
+    Export:
+      Name: !Sub "${AWS::StackName}-TerraformStateTable"
+ 
+  AirlyTableName:
+    Description: Data DynaloDB Table for AlexaAirly
+    Value: !Ref AirlyTable
+    Export:
+      Name: !Sub "${AWS::StackName}-AirlyTable"
