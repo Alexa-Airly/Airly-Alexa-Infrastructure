@@ -19,7 +19,7 @@ jobs:
       script:
         - echo "Check for commit ${TRAVIS_COMMIT} and tag ${TRAVIS_TAG} from branch ${TRAVIS_BRANCH}."
         - echo "This is build number ${TRAVIS_BUILD_NUMBER}, for ${TRAVIS_REPO_SLUG}."
-        - docker pull almerhor/cfmlint:latest
+        - docker pull almerhor/cfnlint:latest
         - docker run --rm -v $(pwd)/:/lintfiles cfnlinter -t template_cloudformation.yml
     - stage: Deploy infra
       script:
