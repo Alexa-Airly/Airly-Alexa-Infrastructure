@@ -19,6 +19,11 @@ jobs:
       script:
         - echo "Check for commit ${TRAVIS_COMMIT} and tag ${TRAVIS_TAG} from branch ${TRAVIS_BRANCH}."
         - echo "This is build number ${TRAVIS_BUILD_NUMBER}, for ${TRAVIS_REPO_SLUG}."
+        - sed -i -e "s/STATETABLENAME/${terraform_table}/g" template_cloudformation.yml
+        - sed -i -e "s/STATEBUCKETNAME/${terraform_bucket}/g" template_cloudformation.yml
+        - sed -i -e "s/ARTIFACTBUCKETNAME/${artifact_bucket}/g" template_cloudformation.yml
+        - sed -i -e "s/AIRLYTABLE/${dynamodb_airly}/g" template_cloudformation.yml
+        - sed -i -e "s/ACCOUNTNUMBER/${account_number}/g" template_cloudformation.yml
         - docker pull almerhor/cfnlint:latest
         - docker run --rm -v $(pwd)/:/lintfiles almerhor/cfnlint -t template_cloudformation.yml
     - stage: Deploy infra
