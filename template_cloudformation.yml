@@ -73,6 +73,30 @@ Resources:
           Key: Purpose
           Value: Terraform Locks table
 
+  DeployHashTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: DEPLOYHASH
+      BillingMode: "PAY_PER_REQUEST"
+      AttributeDefinitions:
+        -
+          AttributeName: "FunctionName"
+          AttributeType: "S"
+      KeySchema: 
+        -
+          AttributeName: "FunctionName"
+          KeyType: "HASH"
+      Tags:
+        -
+          Key: Name
+          Value: DEPLOYHASH
+        -
+          Key: Project
+          Value: Alexa-Airly-Status
+        -
+          Key: Purpose
+          Value: Terraform Locks table
+
   AirlyTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -151,13 +175,18 @@ Resources:
                       - ''
                       - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:table/'
                         - !Ref AirlyTable
+                  -
+                    !Join
+                      - ''
+                      - - 'arn:aws:dynamodb:eu-west-1:ACCOUNTNUMBER:table/'
+                        - !Ref DeployHashTable
 Outputs:
   TerraformStateBucketName:
     Description: Terraform States bucket for AlexaAirly
     Value: !Ref TerraformStateBucket
     Export:
       Name: !Sub "${AWS::StackName}-TerraformStateBucket"
- 
+
   ArtifactsBucketName:
     Description: Artifacts bucket for AlexaAirly
     Value: !Ref ArtifactsBucket
@@ -169,7 +198,13 @@ Outputs:
     Value: !Ref TerraformStateTable
     Export:
       Name: !Sub "${AWS::StackName}-TerraformStateTable"
- 
+
+  DeployHashTableName:
+    Description: Deploy hashes DynamoDB table for AlexaAirly
+    Value: !Ref DeployHashTable
+    Export:
+      Name: !Sub "${AWS::StackName}-DeployHashTable"
+
   AirlyTableName:
     Description: Data DynaloDB Table for AlexaAirly
     Value: !Ref AirlyTable
