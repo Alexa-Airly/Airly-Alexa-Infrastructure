@@ -193,6 +193,12 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-ArtifactsBucket"
 
+  ArtifactsBucketArn:
+    Description: Artifacts bucket for AlexaAirly Arn
+    Value: !GetAtt ArtifactsBucket.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-ArtifactsBucketArn"
+
   TerraformStateTableName:
     Description: Terraform Locks DynamoDB table for AlexaAirly
     Value: !Ref TerraformStateTable
